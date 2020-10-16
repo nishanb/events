@@ -18,6 +18,26 @@ const UserSchema = new mongoose.Schema({
         min: 10,
         max: 1024,
     },
+    gender: {
+        type: { enum: ['Male', 'Female'] },
+        required: false,
+        default: null,
+    },
+    age: {
+        type: Number,
+        required: false,
+        default: null,
+    },
+    weight: {
+        type: Number,
+        required: false,
+        default: null,
+    },
+    height: {
+        type: Number,
+        required: false,
+        default: null,
+    },
     createdAt: {
         type: Date,
         default: Date.now(),
