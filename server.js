@@ -2,6 +2,7 @@ const express = require('express');
 const dbHelper = require('./helper/mongDb');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const expressSanitizer = require('express-sanitizer');
 
 //Init express app
 const app = express();
@@ -19,12 +20,16 @@ dbHelper.connect();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//Input sanitizer
+app.use(expressSanitizer());
+
 //Routers
-app.use('/api/user', require('./router/auth'));
+app.use('/api/user', require('./router/authRouter'));
+app.use('/api/task', require('./router/taskRouter'));
 
 //Undefined routes
 app.all('*', (req, res) => {
-    res.status(403).send();
+    res.status(404).send('404 not found');
 });
 
 const PORT = process.env.PORT || process.env.DEFAULT_PORT;
