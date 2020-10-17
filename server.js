@@ -1,5 +1,5 @@
 const express = require('express');
-const dbHelper = require('./helper/mongDb');
+const dbHelper = require('./helpers/mongDb');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const expressSanitizer = require('express-sanitizer');
@@ -24,8 +24,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(expressSanitizer());
 
 //Routers
-app.use('/api/user', require('./router/authRouter'));
-app.use('/api/task', require('./router/taskRouter'));
+app.use('/api/user', require('./routes/AuthRoutes'));
+app.use('/api/task', require('./routes/TaskRoutes'));
+app.use('/api/food', require('./routes/FoodRoutes'));
 
 //Undefined routes
 app.all('*', (req, res) => {

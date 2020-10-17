@@ -1,5 +1,5 @@
-const Task = require('./../model/Task');
-const validation = require('./../helper/validation');
+const Task = require('../models/TaskModel');
+const validation = require('../helpers/validation');
 
 module.exports = {
     //Create Task

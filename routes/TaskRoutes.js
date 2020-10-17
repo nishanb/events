@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const TaskController = require('../controller/TaskController');
+const TaskController = require('../controllers/TaskController');
 
-router.use(require('./../middleware/validateUser'));
+router.use(require('./../middlewares/validateUser'));
 
 //CREATE
 router.post('/', (req, res) => {
