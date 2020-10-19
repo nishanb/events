@@ -3,6 +3,7 @@ const dbHelper = require('./helpers/mongDb');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const expressSanitizer = require('express-sanitizer');
+const rateLimit = require('express-rate-limit');
 
 //Init express app
 const app = express();
@@ -14,7 +15,16 @@ dotenv.config();
 app.use(morgan(process.env.MORGON_LOG_LEVEL));
 
 //connect to DB
-dbHelper.connect();
+//dbHelper.connect();
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit each IP to 100 requests per windowMs
+    message:
+        'Too many accounts created from this IP, please try again after an hour',
+});
+
+app.use(limiter);
 
 //Body parser
 app.use(express.json());
